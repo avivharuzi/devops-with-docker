@@ -1,0 +1,48 @@
+version: "3"
+
+services:
+    nginx:
+        container_name: nginx
+        restart: always
+        image: nginx:alpine
+        ports:
+            - "5200:80"
+        volumes:
+            - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+            - ./nginx/gzip.conf:/etc/nginx/conf.d/gzip.conf
+            - ./log/nginx:/var/log/nginx
+        depends_on:
+            - web
+        networks:
+            - nginx-node-mongo-network
+    web:
+        container_name: web
+        restart: always
+        build: ./web
+        ports:
+            - "8080:80"
+        volumes:
+            - ./web/src:/usr/src/web/src
+        depends_on:
+            - db
+        links:
+            - db
+        networks:
+            - nginx-node-mongo-network
+    db:
+        container_name: db
+        restart: always
+        image: mongo:latest
+        ports:
+            - "27017:27017"
+        volumes:
+            - ./data:/data/db
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: pass
+        networks:
+            - nginx-node-mongo-network
+
+networks:
+    nginx-node-mongo-network:
+        driver: bridge
