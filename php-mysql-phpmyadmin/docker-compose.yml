@@ -1,0 +1,51 @@
+version: "3"
+
+services:
+    web:
+        container_name: web
+        restart: always
+        image: php:7.2.9-apache
+        ports:
+            - "5200:80"
+        volumes:
+            - ./web:/var/www/html
+        depends_on:
+            - db
+        networks:
+            - php-mysql-phpmyadmin
+    db:
+        container_name: db
+        restart: always
+        image: mysql:latest
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./data:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: pass
+            MYSQL_DATABASE: db
+            MYSQL_USER: root
+            MYSQL_PASSWORD: pass
+        networks:
+            - php-mysql-phpmyadmin
+    phpmyadmin:
+        container_name: phpmyadmin
+        restart: always
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - "9191:80"
+        depends_on:
+            - db
+        external_links:
+            - db:mysql
+        environment:
+            MYSQL_USER: root
+            MYSQL_PASSWORD: pass
+            MYSQL_ROOT_PASSWORD: pass
+            PMA_HOST: db
+        networks:
+            - php-mysql-phpmyadmin
+
+networks:
+    php-mysql-phpmyadmin:
+        driver: bridge
