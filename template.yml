@@ -1,0 +1,19 @@
+version: # Docker compose version: can be 1, 2, 3 or newer versions
+
+services: # Containers: same as docker run
+	servicename: # A friendly name: this is also DNS name inside network
+		container_name: # Specify a custom container name: rather than a generated default name
+		restart: # Optional: decide rather what to do when container failed
+		image: # Optional: if you use build
+		build: # Option: if you use image
+		ports: # Expose ports
+		volumes: # Optional: same as -v in docker run
+		depends_on: # Express dependency between services
+		links: # Link to containers in another service
+    	command: # Optional: replace the default CMD specified by the image
+    	environment: # Optional: same as -e in docker run
+		network: # Specify network for this container to connect
+
+volumes: # Optional: same as docker volume create
+
+networks: # Optional: same as docker network create
