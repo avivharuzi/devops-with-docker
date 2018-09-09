@@ -2,7 +2,7 @@ version: "3"
 
 services:
     jenkins:
-	    container-name: jenkins
+        container-name: jenkins
         restart: always
         image: jenkins/jenkins:alpine
         ports:
