@@ -24,7 +24,7 @@ services:
         ports:
             - "2368:2368"
         volumes:
-            - "./web:/var/lib/ghost/content"
+            - ./web:/var/lib/ghost/content
         networks:
             - nginx-ghost
 
