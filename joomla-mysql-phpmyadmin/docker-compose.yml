@@ -1,0 +1,59 @@
+version: "3"
+
+services:
+    web:
+        container_name: web
+        restart: always
+        image: joomla:latest
+        ports:
+            - "5200:80"
+        volumes:
+            - ./web:/var/www/html
+        depends_on:
+            - db
+        links:
+            - db:mysql
+        environment:
+            JOOMLA_DB_HOST: db
+            JOOMLA_DB_NAME: joomla
+            JOOMLA_DB_USER: root
+            JOOMLA_DB_PASSWORD: pass
+        networks:
+            - joomla-mysql-phpmyadmin
+
+    db:
+        container_name: db
+        restart: always
+        image: mysql:latest
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./data:/var/lib/mysql
+        environment:
+            MYSQL_USER: root
+            MYSQL_PASSWORD: pass
+            MYSQL_ROOT_PASSWORD: pass
+        networks:
+            - joomla-mysql-phpmyadmin
+
+    phpmyadmin:
+        container_name: phpmyadmin
+        restart: always
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - "9191:80"
+        depends_on:
+            - db
+        links:
+            - db:mysql
+        environment:
+            PMA_HOST: db
+            MYSQL_USER: root
+            MYSQL_PASSWORD: pass
+            MYSQL_ROOT_PASSWORD: pass
+        networks:
+            - joomla-mysql-phpmyadmin
+
+networks:
+    joomla-mysql-phpmyadmin:
+        driver: bridge
