@@ -17,6 +17,7 @@ services:
             - web
         networks:
             - nginx-ghost
+
     web:
         container_name: web
         restart: always

@@ -20,6 +20,7 @@ services:
             - db
         networks:
             - wordpress
+
     db:
         container_name: db
         restart: always

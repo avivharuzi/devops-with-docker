@@ -13,6 +13,7 @@ services:
             - db
         networks:
             - php-mysql-phpmyadmin
+
     db:
         container_name: db
         restart: always
@@ -28,6 +29,7 @@ services:
             MYSQL_PASSWORD: pass
         networks:
             - php-mysql-phpmyadmin
+
     phpmyadmin:
         container_name: phpmyadmin
         restart: always

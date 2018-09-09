@@ -15,6 +15,7 @@ services:
             - web
         networks:
             - nginx-node-mongo-network
+
     web:
         container_name: web
         restart: always
@@ -29,6 +30,7 @@ services:
             - db
         networks:
             - nginx-node-mongo-network
+
     db:
         container_name: db
         restart: always
