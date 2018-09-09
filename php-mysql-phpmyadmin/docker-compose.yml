@@ -23,10 +23,10 @@ services:
         volumes:
             - ./data:/var/lib/mysql
         environment:
-            MYSQL_ROOT_PASSWORD: pass
             MYSQL_DATABASE: db
             MYSQL_USER: root
             MYSQL_PASSWORD: pass
+            MYSQL_ROOT_PASSWORD: pass
         networks:
             - php-mysql-phpmyadmin
 

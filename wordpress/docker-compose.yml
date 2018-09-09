@@ -26,10 +26,10 @@ services:
         restart: always
         image: mariadb
         environment:
-            MYSQL_ROOT_PASSWORD: pass
             MYSQL_DATABASE: wordpress
             MYSQL_USER: root
             MYSQL_PASSWORD: pass
+            MYSQL_ROOT_PASSWORD: pass
         volumes:
             - ./data:/var/lib/mysql
         networks:
