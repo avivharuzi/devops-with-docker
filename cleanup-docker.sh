@@ -10,4 +10,4 @@ sudo docker rm $(sudo docker ps -a -q)
 sudo docker rmi $(sudo docker images -q)
 
 # Delete System
-sudo docker system prune --volumes
+sudo docker system prune --volumes -f
