@@ -1,18 +1,18 @@
 version: "3"
 
 services:
-    jenkins:
-        container-name: jenkins
-        restart: always
-        image: jenkins/jenkins:alpine
-        ports:
-            - "8080:8080"
-            - "50000:50000"
-        volumes:
-            - ./data:/var/jenkins_home
-        networks:
-            - jenkins
+  jenkins:
+    container-name: jenkins
+    image: jenkins/jenkins:alpine
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    restart: always
+    volumes:
+      - ./data/jenkins:/var/jenkins_home
+    networks:
+      - jenkins
 
 networks:
-    jenkins:
-        driver: bridge
+  jenkins:
+    driver: bridge
