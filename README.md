@@ -1,2 +1,3 @@
-# devops-with-docker
-many docker examples of deployments and ideas
+# Devops With Docker
+
+Docker examples of deployments and ideas.
