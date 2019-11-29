@@ -1,19 +1,49 @@
-version: # Docker compose version: can be 1, 2, 3 or newer versions
+# Docker Compose version: can be "1", "2", "3" or newer versions
+version: "3.7"
 
-services: # Containers: same as docker run
-  servicename: # A friendly name: this is also DNS name inside network
-    container_name: # Specify a custom container name: rather than a generated default name
-    restart: # Optional: decide rather what to do when container failed
-    image: # Optional: if you use build
-    build: # Option: if you use image
-    ports: # Expose ports
-    volumes: # Optional: same as -v in docker run
-    depends_on: # Express dependency between services
-    links: # Link to containers in another service
-    command: # Optional: replace the default CMD specified by the image
-    environment: # Optional: same as -e in docker run
-    network: # Specify network for this container to connect
+# Containers: same as docker run
+services:
+  # A friendly name: this is also DNS name inside the network
+  servicename:
+    # Specify a custom container name: rather than a generated default name
+    container_name: servicename
+    # Optional: decide rather what to do when container failed
+    restart: always
+    # Optional: run an init inside the container that forwards signals and reaps processes
+    init: true
+    # Optional: if you use build (the name of the must be registered in docker locally or in docker hub)
+    image: nginx
+    # Optional: if you use image (you need to specify the path of the Dockerfile to run)
+    build: ./
+    # Expose ports: (host-port:container-port)
+    ports:
+      - "80:80"
+      - "443:443"
+    # Optional: same as -v in docker run
+    volumes:
+      - ./src:/var/www/html
+    # Express dependency between services
+    depends_on:
+      - other-servicename
+    # Link to containers in another service
+    links:
+      - other-servicename
+    # Optional: replace the default CMD specified by the image
+    command: service nginx reload
+    # Optional: select file with environment variables
+    env_file:
+      - ./.env
+    # Optional: same as -e in docker run
+    environment:
+      - NGINX_PORT=80
+    # Specify network for this container to connect
+    network:
+      - my-network
 
-volumes: # Optional: same as docker volume create
+# Optional: same as docker volume create
+volumes:
 
-networks: # Optional: same as docker network create
+# Optional: same as docker network create
+networks:
+  - my-network:
+      driver: bridge
