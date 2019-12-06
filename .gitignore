@@ -1,1 +1,8 @@
+# Mac
+.DS_Store
+
+# JetBrains Editor
+.idea
+
+# Environment
 **/.env

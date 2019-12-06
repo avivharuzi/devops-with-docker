@@ -1,12 +1,13 @@
-version: "3"
+version: "3.7"
 
 services:
   nginx:
     container_name: nginx
-    image: nginx:alpine
+    restart: always
+    init: true
+    image: nginx:1.17.6-alpine
     ports:
       - "80:80"
-    restart: always
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./nginx/gzip.conf:/etc/nginx/conf.d/gzip.conf
@@ -18,10 +19,11 @@ services:
 
   node:
     container_name: node
+    restart: always
+    init: true
     build: ./web
     ports:
       - "8080:80"
-    restart: always
     volumes:
       - ./web/src:/usr/src/web/src
     depends_on:
@@ -33,15 +35,16 @@ services:
 
   mongo:
     container_name: mongo
-    image: mongo:latest
+    restart: always
+    init: true
+    image: mongo:3.4
     ports:
       - "27017:27017"
-    restart: always
     volumes:
       - ./data/mongo:/data/db
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: pass
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
     networks:
       - nginx-node-mongo
 
