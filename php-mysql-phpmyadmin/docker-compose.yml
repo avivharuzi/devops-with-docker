@@ -1,11 +1,11 @@
-version: "3.7"
+version: "3.9"
 
 services:
   php:
     container_name: php
     restart: always
     init: true
-    image: php:7.2.9-apache
+    image: php:8.0.5-apache
     ports:
       - "8080:80"
     volumes:
