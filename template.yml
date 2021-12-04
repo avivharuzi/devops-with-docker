@@ -37,11 +37,12 @@ services:
     environment:
       - NGINX_PORT=80
     # Specify network for this container to connect
-    network:
+    networks:
       - my-network
 
 # Optional: same as docker volume create
 volumes:
+  my-volume:
 
 # Optional: same as docker network create
 networks:
